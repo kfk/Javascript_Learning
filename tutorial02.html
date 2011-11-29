@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>jQuery Starterkit</title>
+
+<link rel="stylesheet" type="text/css" media="screen" href="screen.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js" type="text/javascript"></script>
+</head>
+<body>
+
+<script>
+$(document).ready(function() {
+	var col_sel = ['text','number'];
+	$("#_table").find("thead:first th").each(function(index){
+		$(this).append("</br><input type='text' name= '"+index+"' class=filterText />")
+		;})	
+	$('input.filterText').keyup(function() {
+		var col_ind = Number($(this).attr("name"));
+		var typed_val = $(this).val();
+		var col_pos = col_ind + 1;
+		if(col_sel[col_ind]=='number'){
+			$('#_table>tbody>tr>td:nth-child('+col_pos+')').each( function(){
+				if (parseFloat(typed_val) > parseFloat($(this).text()) ){
+					//$('#_table>tbody>tr').hide();}
+					($(this).parent().addClass("Test"))}
+				else {
+					$(this).parent().removeClass("Test");}
+			});
+			$("#_table>tbody>tr").show();
+			$(".Test").hide();
+		}
+		else {
+			//alert(col_pos);
+			var rows = $('#_table>tbody>tr').show();
+			rows.find('td:nth-child(1):not(:contains("'+typed_val+'"))').parent().hide();
+		};
+	});
+ });
+</script>
+
+<div id="_test">Here is the test div|</div>
+
+<table id="_table">
+  <thead>
+    <tr>
+      <th>Month</th>
+      <th>Savings</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>January</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <td>February</td>
+      <td>80</td>
+    </tr>
+    <tr>
+      <td>March</td>
+      <td>180</td>
+    </tr>
+  </tbody>
+</table>
+
+</body>
+</html>
